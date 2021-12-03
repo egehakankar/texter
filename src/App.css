@@ -1,38 +1,108 @@
 .App {
-  text-align: center;
+    min-height: 100vh !important;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
+}
+
+.cont {
+    padding: 24px;
+}
+
+.signOut {
+    position: fixed !important;
+    z-index: 1;
+    margin-top: -5vh !important;
+}
+
+.messages {
+    max-height: 78vh !important;
+    overflow: scroll !important;
+    margin-top: 5vh !important;
+    max-width: 98vw !important;
+}
+
+.css-83ijpv-MuiTypography-root {
+    color: rgb(255, 255, 255) !important;
+}
+
+.message {
+    width: 39vw !important;
+    overflow-wrap: break-word;
+}
+
+.form {
+    text-align: center;
+    margin-top: 2vh !important;
+}
+
+.inp {
+    min-width: 75vw !important;
+    border-color: white !important;
+}
+
+.css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input {
+    color: white !important;
+}
+
+.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+    color: grey !important;
+}
+
+.send {
+    width: 7vw !important;
+    line-height: 3.2 !important;
+    margin-left: 5px !important;
+}
+
+.recieved {}
+
+.sent {
+    color: white;
+    margin-right: 0 !important;
+    margin-left: auto;
+    flex-direction: row-reverse;
+    width: min-content !important;
+    gap: 2vw;
+    text-align: right !important;
+    min-width: auto;
+    max-width: 39vw !important;
+}
+
+.sentD {
+    margin-right: 100px !important;
+    margin-left: 0px !important;
+    width: 30vw !important;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

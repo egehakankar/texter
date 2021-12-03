@@ -1,7 +1,16 @@
 import './App.css';
+import './darkCss/dark.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useRef, useEffect } from 'react';
+
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
+import TextField from '@mui/material/TextField';
 
 import firebase from 'firebase/compat/app';
 import * as mes from "firebase/messaging";
@@ -64,12 +73,12 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App darkGray">
       {show ? <ToastContainer /> : ""}
       <header className="">
 
       </header>
-      <Container maxWidth="xl">
+      <Container className="cont" maxWidth="xl">
         {user ? <Chats /> : <SignIn />}
       </Container>
     </div>
@@ -89,7 +98,7 @@ function SignIn() {
 
 function SignOut() {
   return auth.currentUser && (
-    <Button onClick={() => auth.signOut()} variant="outlined" color="error">Sign Out</Button>
+    <Button className="signOut" onClick={() => auth.signOut()} variant="outlined" color="error">Sign Out</Button>
   )
 }
 
@@ -97,7 +106,7 @@ function Chats() {
   const dummy = useRef();
 
   const messagesRef = firestore.collection('allmesage');
-  const query = messagesRef.orderBy('time').limit(25);
+  const query = messagesRef.orderBy('timeK').limit(25);
 
   const [messages] = useCollectionData(query, { idField: 'id' });
 
@@ -109,8 +118,8 @@ function Chats() {
 
     await messagesRef.add({
       message: formValue,
-      time: firebase.firestore.FieldValue.serverTimestamp(),
-      id: uid,
+      timeK: firebase.firestore.FieldValue.serverTimestamp(),
+      idK: uid,
       photo: photoURL
     });
 
@@ -120,34 +129,53 @@ function Chats() {
   }
 
   return (
-    <>
+    <div className="dark:bg-black">
       {<SignOut />}
-      <div>
-        {messages && messages.map(msg => <Message key={msg.id} message={msg} />)}
+      <List className="darkGray messages" sx={{ width: '100%', maxWidth: 360, }}>
+        {messages && messages.map(msg => <Message message={msg} />)}
 
         <div ref={dummy}></div>
-      </div>
+      </List>
 
-      <form onSubmit={sendMessage}>
-        <input value={formValue} onChange={(e) => setFormValue(e.target.value)} />
-        <Button type="submit" variant="contained" color="success">
+      <form className="form" onSubmit={sendMessage}>
+        <TextField
+          className="inp"
+          id="outlined-multiline-flexible"
+          label="Message"
+          multiline
+          maxRows={2}
+          value={formValue}
+          onChange={(e) => setFormValue(e.target.value)}
+        />
+
+        <Button className="send" type="submit" variant="outlined" color="success">
           Send
         </Button>
       </form>
-    </>
+    </div>
   )
 }
 
 
 function Message(props) {
-  const { message, id, photo } = props.message;
-  const mC = id === auth.currentUser.uid ? 'sent' : 'recieved';
+  const { message, idK, photo, timeK } = props.message;
+  var date = new Date(Number(timeK) * 25.693348);
+  const timeS = ((date.getDate() - 1) + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()).toString();
+  const mC = idK === auth.currentUser.uid ? 'sent' : 'recieved';
 
   return (
-    <Container maxWidth="md" className={`message ${mC}`}>
-      <img src={photo} />
-      <p>{message}</p>
-    </Container>
+    <div className={`message ${mC}`}>
+      <ListItem className={`message ${mC}`}>
+        <ListItemAvatar>
+          <Avatar>
+            <img src={photo} />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText primary={timeS} secondary={message} />
+
+      </ListItem>
+      <Divider className={`divider ${mC}D`} variant="inset" component="li" />
+    </div>
   )
 }
 

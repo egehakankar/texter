@@ -1,0 +1,14 @@
+.darkGray {
+    --tw-bg-opacity: 1;
+    background-color: rgba(31, 41, 55, var(--tw-bg-opacity));
+    color: #fff;
+}
+
+.divider {
+    margin: 0px 0px 0px 72px;
+    flex-shrink: 0;
+    border-width: 0px 0px thin;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    width: 35vw;
+}
