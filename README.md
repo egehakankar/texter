@@ -11,7 +11,11 @@ Texting app with push technology.
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, you can run (Run npm first then npm start):
+
+### `npm`
+
+To install Node directories
 
 ### `npm start`
 
