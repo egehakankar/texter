@@ -13,7 +13,7 @@ Texting app with push technology.
 
 In the project directory, you can run (Run npm first then npm start):
 
-### `npm`
+### `npm install`
 
 To install Node directories
 
