@@ -114,13 +114,14 @@ function Chats() {
 
   const sendMessage = async (e) => {
     e.preventDefault();
-    const { uid, photoURL } = auth.currentUser;
+    const { uid, photoURL, displayName } = auth.currentUser;
 
     await messagesRef.add({
       message: formValue,
       timeK: firebase.firestore.FieldValue.serverTimestamp(),
       idK: uid,
-      photo: photoURL
+      photo: photoURL,
+      name: displayName
     });
 
     setFormValue("");
@@ -168,7 +169,7 @@ function Message(props) {
       <ListItem className={`message ${mC}`}>
         <ListItemAvatar>
           <Avatar>
-            <img src={photo} />
+            <img src={photo} alt = "dsf"/>
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary={timeS} secondary={message} />
