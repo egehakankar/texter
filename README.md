@@ -8,6 +8,7 @@ Texting app with push technology.
 1- Google Authentication
 2- Firestore database
 3- Cloud Mesagges
+4- Cloud Functions
 
 ## Available Scripts
 
