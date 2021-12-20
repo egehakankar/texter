@@ -10,7 +10,8 @@ It uses Firestore for realtime database and cloud messages for push technology.\
 ## Used Technologies:
 ### React.js
 1- Material UI\
-2- Toast
+2- Toast\
+3- Axios
 ### Firebase
 1- Google Authentication\
 2- Firestore database\
