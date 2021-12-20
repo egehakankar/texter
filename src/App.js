@@ -29,7 +29,7 @@ import axios from 'axios';
 
 import logoP from './logo/logo.png';
 
-
+//Initializes Firebase Configurations
 firebase.initializeApp({
   apiKey: "AIzaSyA7u2BiZJH_NYkipybK6JQi076ltPLOSEQ",
   authDomain: "texter-1f7e3.firebaseapp.com",
@@ -41,9 +41,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 
+//Configures Toast
 toast.configure();
 
-
+//Main Hook of Project
 function App() {
   const [user] = useAuthState(auth);
   const [show, setShow] = useState(false);
@@ -51,6 +52,7 @@ function App() {
   const [counter2, setCounter] = useState(0);
   const messaging = mes.getMessaging();
 
+  //Runs when a notification is recieved and sets the notification.
   mes.onMessage(messaging, (payload) => {
 
     if (payload.notification !== undefined) {
@@ -63,6 +65,7 @@ function App() {
     }
   });
 
+  //When notification count is changed, the notification is displayed by Display().
   useEffect(() => {
     if (counter2 > 0) {
       toast(<Display />, {
@@ -86,6 +89,7 @@ function App() {
     );
   }
 
+  //Return of App
   return (
     <div className="App darkGray">
       <header className="">
@@ -98,17 +102,20 @@ function App() {
   );
 }
 
+//Sign In Hook
 function SignIn() {
 
-
+  //Runs when sign in button is clicked
   const signInWithGoogle = async (e) => {
     e.preventDefault();
 
+    //The user signs or registers with Google Authentication
     const provider = new firebase.auth.GoogleAuthProvider();
     await auth.signInWithPopup(provider);
 
+    //This part checks if API key is in the database. 
+    //If it is not: Adds the current API key into the database.
     const { uid } = auth.currentUser;
-
     const messaging = mes.getMessaging();
     mes.getToken(messaging, { vapidKey: 'BF36G3JsgP78J61qmmLskcGMaRx_P2i6-7Oe0pkW3zX67H-2vH4S7uk7HEVAW35dtA63uEW05R9vHOaEV9cz7AY' }).then((currentToken) => {
       if (currentToken) {
@@ -116,8 +123,8 @@ function SignIn() {
         const body1 = { token: currentToken, uid: uid };
         axios.post('https://us-central1-texter-1f7e3.cloudfunctions.net/addKey', body1, {
           headers: {
-            "Access-Control-Allow-Headers": "*", // this will allow all CORS requests
-            "Access-Control-Allow-Methods": "*", // this states the allowed methods
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "*", 
             "Content-Type": "application/json"
           }
         }).then(response => console.log("Response: " + response.data)).catch(error => {
@@ -130,6 +137,8 @@ function SignIn() {
       console.log('An error occurred while retrieving token. ', err);
     });
   }
+
+  //Return of sign in.
   return (
     <div className="signInAll">
       <img className = "signLogo" src={logoP} alt = "logo"/>
@@ -139,26 +148,34 @@ function SignIn() {
   )
 }
 
+
+//Sign out hook
 function SignOut() {
   return auth.currentUser && (
     <Button className="signOut" onClick={() => auth.signOut()} variant="outlined" color="error">Sign Out</Button>
   )
 }
 
+//Chat Hook
 function Chats() {
+  //Is used to scroll automatically down when message recieved or writing a text.
   const dummy = useRef();
 
+  //Collection references
   const messagesRef = firestore.collection('allmesage');
   const photoRef = firestore.collection('keys');
 
+  //Orders messages according to time
   const query = messagesRef.orderBy('timeK');
-
   const [messages] = useCollectionData(query, { idField: 'id' });
 
+  //Message 
   const [formValue, setFormValue] = useState('');
 
+  //Variable to hold photo display boolean
   const [checked, setChecked] = useState(true);
 
+  //Sets photo display radio button from database 
   useEffect(async () => {
     const { uid } = auth.currentUser;
 
@@ -176,6 +193,7 @@ function Chats() {
     })
   }, [])
 
+  //Shows or disables user's photo.
   const handleChange = async (event) => {
     event.preventDefault();
     const { uid, photoURL } = auth.currentUser;
@@ -224,6 +242,7 @@ function Chats() {
     }
   };
 
+  //Send message function
   const sendMessage = async (e) => {
     e.preventDefault();
     const { uid, photoURL, displayName } = auth.currentUser;
@@ -250,6 +269,7 @@ function Chats() {
     setFormValue("");
     dummy.current.scrollIntoView({ behavior: 'smooth' });
 
+
     const messaging = mes.getMessaging();
     mes.getToken(messaging, { vapidKey: 'BF36G3JsgP78J61qmmLskcGMaRx_P2i6-7Oe0pkW3zX67H-2vH4S7uk7HEVAW35dtA63uEW05R9vHOaEV9cz7AY' }).then((currentToken) => {
       if (currentToken) {
@@ -271,6 +291,8 @@ function Chats() {
       console.log('An error occurred while retrieving token. ', err);
     });
   }
+
+  //Scrolls down
   setTimeout(function () {
     if (messages !== undefined) {
       dummy.current.scrollIntoView({ behavior: 'smooth' });
@@ -278,6 +300,7 @@ function Chats() {
   }, 5)
 
 
+  //Return of chat.
   return (
     <div className="dark:bg-black">
       <div className = "header">
@@ -323,11 +346,13 @@ function Chats() {
   )
 }
 
-
+//Individual Message
 function Message(props) {
+  //Variables of the message.
   const { message, idK, photo, name } = props.message;
   const mC = idK === auth.currentUser.uid ? 'sent' : 'recieved';
 
+  //Return of Message
   return (
     <div className={`message ${mC}`}>
       <ListItem className={`message ${mC}`}>

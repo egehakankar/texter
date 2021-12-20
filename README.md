@@ -3,7 +3,9 @@ Texting app with push technology.
 
 ## Notes:
 You can only register by your google account. You can test the project by registering with two different google accounts.\
-It uses Firestore for realtime database and cloud messages for push technology.
+It uses Firestore for realtime database and cloud messages for push technology.\
+
+### The main file is at src/App.js
 
 ## Used Technologies:
 ### React.js
