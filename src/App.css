@@ -11,34 +11,51 @@
     padding: 24px;
 }
 
-.signOut {
-    position: fixed !important;
-    z-index: 1;
-    margin-top: -5vh !important;
-}
-
 .messages {
-    max-height: 78vh !important;
+    max-height: 75vh !important;
     overflow: scroll !important;
-    margin-top: 5vh !important;
     max-width: 98vw !important;
 }
 
-@media only screen and (max-height: 930px) {
-    .messages {
-        max-height: 75vh !important;
-    }
-}
-
-@media only screen and (max-height: 820px) {
+@media only screen and (max-height: 1100px) {
     .messages {
         max-height: 73vh !important;
     }
 }
 
+@media only screen and (max-height: 1000px) {
+    .messages {
+        max-height: 71vh !important;
+    }
+}
+
+@media only screen and (max-height: 930px) {
+    .messages {
+        max-height: 69vh !important;
+    }
+}
+
+@media only screen and (max-height: 820px) {
+    .messages {
+        max-height: 64vh !important;
+    }
+}
+
 @media only screen and (max-height: 750px) {
     .messages {
-        max-height: 70vh !important;
+        max-height: 62vh !important;
+    }
+}
+
+@media only screen and (max-height: 700px) {
+    .messages {
+        max-height: 60vh !important;
+    }
+}
+
+@media only screen and (max-height: 650px) {
+    .messages {
+        max-height: 55vh !important;
     }
 }
 
@@ -103,6 +120,16 @@
     justify-content: center;
     align-items: center;
     height: 400px;
+    flex-direction: column;
+}
+
+.signOut {
+    margin: 25px 0 25px 0 !important;
+}
+
+.signLogo {
+    height: 200px;
+    padding-bottom: 50px;
 }
 
 .login-with-google-btn {
@@ -177,4 +204,15 @@
     to {
         transform: rotate(360deg);
     }
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.logoP {
+    height: 95px;
+    text-align: right;
 }

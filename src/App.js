@@ -27,6 +27,8 @@ import Button from '@mui/material/Button';
 
 import axios from 'axios';
 
+import logoP from './logo/logo.png';
+
 
 firebase.initializeApp({
   apiKey: "AIzaSyA7u2BiZJH_NYkipybK6JQi076ltPLOSEQ",
@@ -130,6 +132,7 @@ function SignIn() {
   }
   return (
     <div className="signInAll">
+      <img className = "signLogo" src={logoP} alt = "logo"/>
       <button className="login-with-google-btn" onClick={signInWithGoogle} >Sign In With Google</button>
     </div>
 
@@ -277,7 +280,11 @@ function Chats() {
 
   return (
     <div className="dark:bg-black">
-      {<SignOut />}
+      <div className = "header">
+        {<SignOut className="signOutB"/>}
+        <img className = "logoP" src={logoP} alt = "logo"/>
+      </div>
+
       <List className="darkGray messages" sx={{ width: '100%', maxWidth: 360, }}>
         {messages && messages.map((msg, i) => <Message key={i} message={msg} />)}
 
@@ -326,7 +333,7 @@ function Message(props) {
       <ListItem className={`message ${mC}`}>
         <ListItemAvatar>
           <Avatar>
-            {photo === "" ? name.substring(0, 1): <img src={photo} alt="dsf" />}
+            {photo === "" ? name.substring(0, 1) : <img src={photo} alt="dsf" />}
           </Avatar>
         </ListItemAvatar>
 

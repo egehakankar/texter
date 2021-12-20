@@ -1,18 +1,23 @@
 # Texter
 Texting app with push technology.
 
+## Notes:
+You can only register by your google account. You can test the project by registering with two different google accounts.\
+It uses Firestore for realtime database and cloud messages for push technology.
+
 ## Used Technologies:
 ### React.js
-1- Material UI
+1- Material UI\
+2- Toast
 ### Firebase
-1- Google Authentication
-2- Firestore database
-3- Cloud Mesagges
+1- Google Authentication\
+2- Firestore database\
+3- Cloud Mesagges\
 4- Cloud Functions
 
 ## Available Scripts
 
-In the project directory, you can run (Run npm first then npm start):
+In the project directory, you can run (Run npm install first, then npm start):
 
 ### `npm install`
 
